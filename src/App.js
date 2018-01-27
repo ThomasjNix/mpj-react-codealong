@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import './App.css';
 
-  let defaultStyles = {
+let defaultStyles = {
     color: '#fff'
-  };
+};
+
+let mockServerData = {
+    user: {
+        name: "Tj"
+    }
+}
 
 class Aggregate extends Component{
-  render(){
+    render(){
     return(
       <div class="aggregate" style={{
           ...defaultStyles,
@@ -16,11 +22,11 @@ class Aggregate extends Component{
         <h2>Number Text</h2>
       </div>
     )
-  }
+    }
 }
 
 class Filter extends Component{
-  render(){
+    render(){
     return(
       <div style={ defaultStyles }>
         <img src="" alt=""/>
@@ -28,11 +34,11 @@ class Filter extends Component{
         Filter
       </div>
     )
-  }
+    }
 }
 
 class Playlist extends Component{
-  render(){
+    render(){
     return(
       <div style={{
         ...defaultStyles,
@@ -48,17 +54,28 @@ class Playlist extends Component{
         </ul>
       </div>
     )
-  }
+    }
 }
 
 class App extends Component {
-  render() {
+    constructor(){
+        super();
+        this.state = {
+           serverData: {}
+        }
+    }
+    componentDidMount(){
+      this.setState({
+          serverData: mockServerData
+      });
+    }
+    render() {
     return (
       <div className="App">
         <h1 style={{ 
           ...defaultStyles,
            fontSize: '54px'
-           }}>Title</h1>
+           }}>{ this.state.serverData.user && this.state.serverData.user.name }'s Playlists</h1>
         <Aggregate />
         <Aggregate />
         <Filter />
@@ -68,7 +85,7 @@ class App extends Component {
         <Playlist />
       </div>
     );
-  }
+    }
 }
 
 export default App;
